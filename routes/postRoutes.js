@@ -7,16 +7,10 @@ const {
   updatePost,
 } = require("../controllers/postController");
 
-// Create post
-router.post("/", createPost);
-
-// Get all posts
-router.get("/", getPosts);
-
-// Delete a post
-router.delete("/:id", deletePost);
-
-// Update a post
-router.put("/:id", updatePost);
+// routes
+router.post("/", createPost); // POST route for creating posts
+router.get("/", getPosts); // GET route for getting posts
+router.delete("/:id", deletePost); // DELETE route for deleting posts
+router.put("/:id", updatePost); // PUT route for updating posts
 
 module.exports = router;
