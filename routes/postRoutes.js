@@ -1,16 +1,17 @@
+
 const express = require("express");
-const router = express.Router();
 const {
-  createPost,
   getPosts,
-  deletePost,
+  createPost,
   updatePost,
+  deletePost,
 } = require("../controllers/postController");
 
-// routes
-router.post("/", createPost); // POST route for creating posts
-router.get("/", getPosts); // GET route for getting posts
-router.delete("/:id", deletePost); // DELETE route for deleting posts
-router.put("/:id", updatePost); // PUT route for updating posts
+const router = express.Router();
+
+router.get("/", getPosts); // GET /api/posts
+router.post("/", createPost); // POST /api/posts
+router.put("/:id", updatePost); // PUT /api/posts/:id
+router.delete("/:id", deletePost); // DELETE /api/posts/:id
 
 module.exports = router;
