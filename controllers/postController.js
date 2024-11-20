@@ -51,3 +51,36 @@ exports.updatePost = (req, res) => {
 exports.deletePost = (req, res) => {
   res.send("Delete post");
 };
+
+exports.likePost = async (req, res) => {
+  const { postId, userId } = req.body;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const isLiked = post.likes.includes(userId);
+
+    if (isLiked) {
+      // Remove like if already liked
+      post.likes = post.likes.filter((id) => id.toString() !== userId);
+    } else {
+      // Add like
+      post.likes.push(userId);
+    }
+
+    await post.save();
+
+    res.status(200).json({
+      message: isLiked ? "Post unliked" : "Post liked",
+      likes: post.likes.length,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error liking post", error: error.message });
+  }
+};
